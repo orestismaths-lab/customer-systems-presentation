@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8" />
+  <title>Customer Systems – Q Review & Strategic Streams</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --magenta: #e20074;
+      --magenta-soft: #fbe5f1;
+      --magenta-light: rgba(251, 229, 241, 0.25);
+      --teal: #10b8a6;
+      --teal-soft: rgba(16, 184, 166, 0.1);
+      --purple: #8b5cf6;
+      --purple-soft: rgba(139, 92, 246, 0.1);
+      --brown: #a16207;
+      --brown-soft: rgba(161, 98, 7, 0.1);
+      --coral: #f97316;
+      --coral-soft: rgba(249, 115, 22, 0.1);
+      --text-main: #111827;
+      --text-muted: #6b7280;
+      --border-subtle: #e5e7eb;
+      --bg-light: #ffffff;
+      --bg-grey: #f9fafb;
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --shadow-soft: 0 10px 30px rgba(15, 23, 42, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "TeleNeo Office", system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+      color: var(--text-main);
+      background: linear-gradient(135deg, #fafbfc 0%, #ffffff 100%);
+      line-height: 1.5;
+    }
+
+    .slide {
+      min-height: 100vh;
+      padding: 20px 55px 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: var(--bg-light);
+    }
+
+    .slide-header {
+      margin-bottom: 8px;
+    }
+
+    .eyebrow {
+      font-size: 16px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--magenta);
+      font-weight: 700;
+      margin-bottom: 10px;
+      position: relative;
+      display: inline-block;
+      padding-bottom: 4px;
+    }
+
+    .eyebrow::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, #ff3f86, #ff9fbf);
+      border-radius: 999px;
+    }
+
+    .slide-title {
+      font-size: 42px;
+      font-weight: 800;
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+
+    .title-bar {
+      height: 4px;
+      width: 120px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #ff3f86, #ff9fbf);
+      margin-bottom: 20px;
+    }
+
+    .slide-subtitle {
+      font-size: 18px;
+      color: var(--text-muted);
+      max-width: 820px;
+    }
+
+    .highlight {
+      color: var(--magenta);
+      font-weight: 700;
+    }
+
+    .content-grid {
+      display: grid;
+      grid-template-columns: 52% 1px 48%;
+      gap: 0;
+      align-items: stretch;
+      position: relative;
+    }
+
+    .content-grid::after {
+      content: "";
+      grid-column: 2;
+      background: linear-gradient(180deg, transparent 0%, var(--border-subtle) 20%, var(--border-subtle) 80%, transparent 100%);
+      width: 1px;
+      opacity: 0.4;
+    }
+
+    .content-column {
+      padding: 0 20px;
+    }
+
+    .content-column:first-child {
+      padding-left: 0;
+      grid-column: 1;
+    }
+
+    .content-column:last-child {
+      padding-right: 0;
+      grid-column: 3;
+    }
+
+    .card {
+      background: linear-gradient(135deg, #ffffff 0%, var(--bg-grey) 100%);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-subtle);
+      border-left: 4px solid var(--magenta);
+      padding: 14px 16px 10px;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.1), 0 0 0 1px rgba(226, 0, 116, 0.05);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.12);
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 60px;
+      height: 60px;
+      background: radial-gradient(circle, rgba(226, 0, 116, 0.08) 0%, transparent 70%);
+      border-radius: 0 var(--radius-lg) 0 100%;
+    }
+
+    .card-title {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 4px;
+      letter-spacing: -0.01em;
+    }
+
+    .card-kicker {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--magenta);
+      margin-bottom: 4px;
+      font-weight: 700;
+      display: inline-block;
+      padding: 2px 8px;
+      background: var(--magenta-soft);
+      border-radius: 4px;
+      width: fit-content;
+    }
+
+    .card-body {
+      font-size: 14px;
+      color: var(--text-main);
+      line-height: 1.6;
+    }
+
+    ul {
+      list-style: none;
+      margin-top: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding-left: 0;
+    }
+
+    li {
+      font-size: 13px;
+      color: var(--text-main);
+      padding-left: 18px;
+      position: relative;
+    }
+
+    li strong {
+      font-weight: 700;
+    }
+
+    li::before {
+      content: "•";
+      color: var(--magenta);
+      position: absolute;
+      left: 0;
+      top: 2px;
+    }
+
+    .kpi-row {
+      margin-top: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      font-size: 11px;
+    }
+
+    .kpi-pill {
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--magenta);
+      background: linear-gradient(135deg, var(--magenta-soft) 0%, rgba(251, 229, 241, 0.6) 100%);
+      color: var(--magenta);
+      font-weight: 600;
+      box-shadow: 0 1px 3px rgba(226, 0, 116, 0.15);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .kpi-pill::before {
+      content: "👥";
+      font-size: 14px;
+    }
+
+    .kpi-pill:last-of-type::before {
+      content: "📈";
+    }
+
+    /* Impact items styling */
+    .impact-list {
+      list-style: none;
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding-left: 0;
+    }
+
+    .impact-item {
+      background: linear-gradient(135deg, #ffffff 0%, #fafbfc 100%);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-subtle);
+      border-left: 4px solid var(--magenta);
+      padding: 14px 16px;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 14px;
+      color: var(--text-main);
+      line-height: 1.6;
+      position: relative;
+    }
+
+    .impact-item::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 40px;
+      height: 40px;
+      background: radial-gradient(circle, rgba(226, 0, 116, 0.06) 0%, transparent 70%);
+      border-radius: 0 var(--radius-md) 0 100%;
+    }
+
+    .impact-item-number {
+      background: linear-gradient(135deg, var(--magenta), #c4005f);
+      color: #ffffff;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 13px;
+      flex-shrink: 0;
+      box-shadow: 0 3px 10px rgba(226, 0, 116, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .impact-item-content {
+      flex: 1;
+      padding-top: 2px;
+    }
+
+    /* Team sections */
+
+    .team-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .team-section {
+      background: linear-gradient(135deg, #ffffff 0%, #fafbfc 100%);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-subtle);
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
+      overflow: hidden;
+    }
+
+    .team-header-strip {
+      height: 3px;
+      width: 100%;
+      margin-bottom: 0;
+    }
+
+    .team-section.prodact-rangers .team-header-strip {
+      background: linear-gradient(90deg, var(--coral), rgba(249, 115, 22, 0.6));
+    }
+
+    .team-section.one4all .team-header-strip {
+      background: linear-gradient(90deg, var(--teal), rgba(16, 184, 166, 0.6));
+    }
+
+    .team-section.owls .team-header-strip {
+      background: linear-gradient(90deg, var(--brown), rgba(161, 98, 7, 0.6));
+    }
+
+    .team-section.fibercats .team-header-strip {
+      background: linear-gradient(90deg, #fbbf24, rgba(251, 191, 36, 0.6));
+    }
+
+    .team-section.trailblazers .team-header-strip {
+      background: linear-gradient(90deg, #3b82f6, rgba(59, 130, 246, 0.6));
+    }
+
+    .team-content {
+      padding: 7px 9px 7px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .team-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 2px;
+    }
+
+    .team-section.prodact-rangers .team-name {
+      color: var(--coral);
+    }
+
+    .team-section.one4all .team-name {
+      color: var(--teal);
+    }
+
+    .team-section.owls .team-name {
+      color: var(--brown);
+    }
+
+    .team-section.fibercats .team-name {
+      color: #fbbf24;
+    }
+
+    .team-section.trailblazers .team-name {
+      color: #3b82f6;
+    }
+
+    .team-meta {
+      font-size: 11px;
+      color: var(--text-muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      flex-shrink: 0;
+      justify-content: flex-end;
+    }
+
+    .team-group-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .team-group-list {
+      margin-top: 2px;
+    }
+
+    .team-group-list li.celebrating {
+      position: relative;
+      padding: 8px 10px 8px 32px;
+      background: linear-gradient(135deg, var(--magenta-soft) 0%, rgba(251, 229, 241, 0.5) 100%);
+      border-left: 4px solid var(--magenta);
+      border-radius: 6px;
+      list-style: none;
+      font-weight: 600;
+      box-shadow: 0 2px 8px rgba(226, 0, 116, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    }
+
+    .team-section.prodact-rangers .team-group-list li.celebrating {
+      background: linear-gradient(135deg, rgba(249, 115, 22, 0.1) 0%, rgba(249, 115, 22, 0.05) 100%);
+      border-left-color: var(--coral);
+      box-shadow: 0 2px 8px rgba(249, 115, 22, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    }
+
+    .team-section.one4all .team-group-list li.celebrating {
+      background: linear-gradient(135deg, rgba(16, 184, 166, 0.1) 0%, rgba(16, 184, 166, 0.05) 100%);
+      border-left-color: var(--teal);
+      box-shadow: 0 2px 8px rgba(16, 184, 166, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    }
+
+    .team-section.owls .team-group-list li.celebrating {
+      background: linear-gradient(135deg, rgba(161, 98, 7, 0.1) 0%, rgba(161, 98, 7, 0.05) 100%);
+      border-left-color: var(--brown);
+      box-shadow: 0 2px 8px rgba(161, 98, 7, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    }
+
+    .team-section.fibercats .team-group-list li.celebrating {
+      background: linear-gradient(135deg, rgba(251, 191, 36, 0.1) 0%, rgba(251, 191, 36, 0.05) 100%);
+      border-left-color: #fbbf24;
+      box-shadow: 0 2px 8px rgba(251, 191, 36, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    }
+
+    .team-section.trailblazers .team-group-list li.celebrating {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(59, 130, 246, 0.05) 100%);
+      border-left-color: #3b82f6;
+      box-shadow: 0 2px 8px rgba(59, 130, 246, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    }
+
+    .team-group-list li.celebrating::before {
+      content: "★";
+      color: var(--magenta);
+      font-size: 18px;
+      position: absolute;
+      left: 8px;
+      top: 6px;
+      font-weight: 700;
+      text-shadow: 0 1px 2px rgba(226, 0, 116, 0.2);
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.6);
+      box-shadow: 0 0 0 1px rgba(226, 0, 116, 0.25);
+    }
+
+    .team-section.prodact-rangers .team-group-list li.celebrating::before {
+      color: var(--coral);
+      text-shadow: 0 1px 2px rgba(249, 115, 22, 0.2);
+      box-shadow: 0 0 0 1px rgba(249, 115, 22, 0.25);
+    }
+
+    .team-section.one4all .team-group-list li.celebrating::before {
+      color: var(--teal);
+      text-shadow: 0 1px 2px rgba(16, 184, 166, 0.2);
+      box-shadow: 0 0 0 1px rgba(16, 184, 166, 0.25);
+    }
+
+    .team-section.owls .team-group-list li.celebrating::before {
+      color: var(--brown);
+      text-shadow: 0 1px 2px rgba(161, 98, 7, 0.2);
+      box-shadow: 0 0 0 1px rgba(161, 98, 7, 0.25);
+    }
+
+    .team-section.fibercats .team-group-list li.celebrating::before {
+      color: #fbbf24;
+      text-shadow: 0 1px 2px rgba(251, 191, 36, 0.2);
+      box-shadow: 0 0 0 1px rgba(251, 191, 36, 0.25);
+    }
+
+    .team-section.trailblazers .team-group-list li.celebrating::before {
+      color: #3b82f6;
+      text-shadow: 0 1px 2px rgba(59, 130, 246, 0.2);
+      box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.25);
+    }
+
+    .footer-bar {
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 2px;
+      margin-top: 8px;
+      font-size: 11px;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .footer-left {
+      text-transform: lowercase;
+    }
+
+    .footer-right {
+      text-align: right;
+    }
+
+    /* Strategic Streams – compact for single slide */
+
+    .strategic-streams-section {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .strategic-streams-section .card-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .strategic-streams-section .card-title {
+      margin-bottom: 10px;
+    }
+
+    .strategic-streams-section .key-messages-grid {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .key-message {
+      background: linear-gradient(135deg, #ffffff 0%, #fafbfc 100%);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-subtle);
+      border-top: 3px solid var(--magenta);
+      padding: 12px 14px 10px;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      position: relative;
+    }
+
+    .stream-number {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 2px solid var(--magenta);
+      background: linear-gradient(135deg, #ffffff, var(--magenta-soft));
+      font-weight: 700;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--magenta);
+      flex-shrink: 0;
+      box-shadow: 0 2px 8px rgba(226, 0, 116, 0.2);
+      margin-bottom: 4px;
+    }
+
+    .key-message::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 50px;
+      height: 50px;
+      background: radial-gradient(circle, rgba(226, 0, 116, 0.06) 0%, transparent 70%);
+      border-radius: 0 var(--radius-md) 0 100%;
+    }
+
+    .key-number {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--magenta);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      display: inline-block;
+      padding: 2px 6px;
+      background: var(--magenta-soft);
+      border-radius: 4px;
+      width: fit-content;
+    }
+
+    .key-title {
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 4px;
+      line-height: 1.4;
+    }
+
+    .key-body {
+      font-size: 14px;
+      color: var(--text-main);
+      line-height: 1.6;
+    }
+
+    .key-body strong {
+      font-weight: 600;
+      font-size: 14.5px;
+    }
+
+    .meta-pill {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      background: #ffeaf4;
+      border: 1px solid rgba(226, 0, 116, 0.2);
+      color: var(--magenta);
+      font-weight: 600;
+      margin-right: 6px;
+      margin-bottom: 4px;
+    }
+
+    .meta-pill.teal {
+      background: rgba(16, 184, 166, 0.1);
+      border-color: rgba(16, 184, 166, 0.3);
+      color: var(--teal);
+    }
+
+    .meta-pill.purple {
+      background: rgba(139, 92, 246, 0.1);
+      border-color: rgba(139, 92, 246, 0.3);
+      color: var(--purple);
+    }
+
+    .meta-pill.orange {
+      background: rgba(251, 191, 36, 0.1);
+      border-color: rgba(251, 191, 36, 0.3);
+      color: #fbbf24;
+    }
+
+    .meta-pill.blue {
+      background: rgba(59, 130, 246, 0.1);
+      border-color: rgba(59, 130, 246, 0.3);
+      color: #3b82f6;
+    }
+
+    .meta-pill.brown {
+      background: rgba(161, 98, 7, 0.1);
+      border-color: rgba(161, 98, 7, 0.3);
+      color: var(--brown);
+    }
+
+    .meta-pill.coral {
+      background: rgba(249, 115, 22, 0.1);
+      border-color: rgba(249, 115, 22, 0.3);
+      color: var(--coral);
+    }
+
+    .key-tag {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+
+    /* Slide 3 – celebrations */
+
+    .celebration-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .celebration-card {
+      background: #ffffff;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-subtle);
+      padding: 14px 14px 12px;
+      box-shadow: 0 6px 16px rgba(15, 23, 42, 0.08);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 13px;
+    }
+
+    .celebration-team {
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--magenta);
+      font-weight: 700;
+    }
+
+    .celebration-title {
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .celebration-body {
+      font-size: 13px;
+      color: var(--text-main);
+    }
+
+    @media (max-width: 1280px) {
+      .celebration-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @keyframes fadeInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes fadeInRight {
+      from {
+        opacity: 0;
+        transform: translateX(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .content-column:first-child {
+      animation: fadeInLeft 0.5s ease-out;
+    }
+
+    .content-column:last-child {
+      animation: fadeInRight 0.5s ease-out;
+    }
+
+    @media (max-width: 960px) {
+      .slide {
+        padding: 32px 20px 40px;
+      }
+
+      .content-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .content-grid::before {
+        display: none;
+      }
+
+      .content-column {
+        padding: 0;
+      }
+
+      .key-messages-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .celebration-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 720px) {
+      .key-messages-grid,
+      .celebration-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .slide-title {
+        font-size: 30px;
+      }
+
+      .slide-subtitle {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SLIDE 1 – What We Achieved -->
+  <section class="slide">
+    <header class="slide-header">
+      <div class="eyebrow">Value Delivery Domain - Customer Systems</div>
+    </header>
+
+    <main class="content-grid">
+      <!-- Αριστερά – Squad Achievements -->
+      <div class="content-column">
+      <section class="card">
+        <div class="card-kicker">Squad Achievements</div>
+        <h2 class="card-title">Key Achievements per Squad</h2>
+
+        <div class="team-list">
+
+          <!-- Fibercats -->
+          <div class="team-section fibercats">
+            <div class="team-header-strip"></div>
+            <div class="team-content">
+              <div class="team-header">
+                <div class="team-name">Fibercats</div>
+                <div class="team-meta">
+                  <span class="meta-pill orange">FTTH Excellence</span>
+                  <span class="meta-pill orange">Pilot/Follower</span>
+                  <span class="meta-pill orange">Copper Exit</span>
+                </div>
+              </div>
+
+              <div class="team-group">
+                <ul class="team-group-list">
+                  <li>FTTH redesign for Pilot/Follower: <strong>25% μείωση στον χρόνο ολοκλήρωσης</strong> πιλοτικής παραγγελίας, μέσω εξάλειψης manual βημάτων & αυτόματης ανάθεσης όλων των activities στον ίδιο εργολάβο.</li>
+                  <li>Stop Selling Copper: <strong>36% αύξηση FTTH ενεργοποιήσεων</strong> σε διασυνδεδεμένα κτίρια μετά το rollout.</li>
+                  <li class="celebrating">Σχέση εμπιστοσύνης με βασικούς stakeholders: Μέσα σε έναν χρόνο διαμορφώθηκε σχέση εμπιστοσύνης, με συνεχή βελτίωση παραγωγικών διαδικασιών, αναβάθμιση εμπειρίας πελάτη και παραγωγή αξίας σε στρατηγικό FTTH πυλώνα.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- One4All -->
+          <div class="team-section one4all">
+            <div class="team-header-strip"></div>
+            <div class="team-content">
+              <div class="team-header">
+                <div class="team-name">One4All</div>
+                <div class="team-meta">
+                  <span class="meta-pill teal">Faults</span>
+                  <span class="meta-pill teal">Load Reduction</span>
+                  <span class="meta-pill teal">WiFi Experience</span>
+                </div>
+              </div>
+
+              <div class="team-group">
+                <ul class="team-group-list">
+                  <li class="celebrating">Fault Navigator: real-time παρακολούθηση βλαβών στο COSMOTE App & myCOSMOView, με ίδια εικόνα για πελάτη και agent.<br>Στόχος: Μείωση μη πωλησιακών κλήσεων, Ενίσχυση του digital deflection, Αύξηση του NPS</li>
+                  <li>FTTH Massive Active Equipment: διαχείριση μαζικών βλαβών ενεργού εξοπλισμού με αυτόματη δημιουργία individual faults.<br>Έργο κάτω από την ομπρέλα Load Reduction.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Owls -->
+          <div class="team-section owls">
+            <div class="team-header-strip"></div>
+            <div class="team-content">
+              <div class="team-header">
+                <div class="team-name">Owls</div>
+                <div class="team-meta">
+                  <span class="meta-pill brown">Wholesale</span>
+                  <span class="meta-pill brown">WCRM</span>
+                  <span class="meta-pill brown">FTTH Flows</span>
+                </div>
+              </div>
+
+              <div class="team-group">
+                <ul class="team-group-list">
+                  <li class="celebrating">Stop Selling VPU_Light: στρατηγικό έργο στο πλαίσιο προώθησης του FTTH, με στοχευμένη μετάβαση από legacy προϊόντα.</li>
+                  <li>Pilot/Follower redesign: απλοποίηση αρχιτεκτονικής FTTH provisioning και ενίσχυση σταθερότητας της πλατφόρμας.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Prod@ct Rangers -->
+          <div class="team-section prodact-rangers">
+            <div class="team-header-strip"></div>
+            <div class="team-content">
+              <div class="team-header">
+                <div class="team-name">Prod@ct Rangers</div>
+                <div class="team-meta">
+                  <span class="meta-pill coral">Selfcare</span>
+                  <span class="meta-pill coral">FWA</span>
+                  <span class="meta-pill coral">SD-X</span>
+                </div>
+              </div>
+
+              <div class="team-group">
+                <ul class="team-group-list">
+                  <li>Product Configuration Selfcare και με χρήση Chat bot.</li>
+                  <li class="celebrating">FWA stream (student, connected schools, freeze) με ολοκληρωμένες end-to-end ροές.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Trailblazers -->
+          <div class="team-section trailblazers">
+            <div class="team-header-strip"></div>
+            <div class="team-content">
+              <div class="team-header">
+                <div class="team-name">Trailblazers</div>
+                <div class="team-meta">
+                  <span class="meta-pill blue">Salesforce</span>
+                  <span class="meta-pill blue">B2B</span>
+                  <span class="meta-pill blue">Public Bids</span>
+                </div>
+              </div>
+
+              <div class="team-group">
+                <ul class="team-group-list">
+                  <li>Dedicated process για Public Bids, καλύπτοντας Sales, Pre-Sales, Contract Managers, Bid/Tender Support & Project Managers, με στόχο πιο ομοιόμορφες διαδικασίες και μειωμένο ρίσκο.</li>
+                  <li>Revenue prediction mechanism για ICT προϊόντα, ευθυγραμμισμένο με DT Central, βελτιώνοντας την ακρίβεια του revenue planning.</li>
+                  <li class="celebrating">Performance Optimization σε Salesforce: Σε βάθος technical review και στοχευμένες βελτιστοποιήσεις απόδοσης στο Salesforce οικοσύστημα, με απτά αποτελέσματα στην καθημερινή χρήση σε κάθε βήμα του Process (9% - 93% βελτίωση του performance σε στοχευμένα actions)</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+      </div>
+
+      <!-- Δεξιά – Strategic Streams -->
+      <div class="content-column">
+      <section class="card strategic-streams-section">
+        <div class="card-kicker">Strategic Streams</div>
+        <h2 class="card-title">Where We Are Heading</h2>
+        <div class="card-body">
+          <section class="key-messages-grid">
+          <!-- Stream 1 -->
+          <div class="key-message">
+            <div class="stream-number">01</div>
+            <div class="key-title">One Order & FTTH Acceleration</div>
+            <div class="key-tag">
+              <span class="meta-pill coral">Prod@ct Rangers</span>
+              <span class="meta-pill brown">Owls</span>
+              <span class="meta-pill orange">Fibercats</span>
+            </div>
+            <p class="key-body">
+              <strong>Επεκτείνουμε τα SD-X προϊόντα, συνεχίζουμε τις επόμενες φάσεις FWA & Selfcare</strong>
+              και προχωράμε με CFO full launch & WB FTTH redesign. Στόχος είναι πιο απλές,
+              ταχύτερες και αξιόπιστες FTTH & ordering ροές, με μετρήσιμο impact στις ενεργοποιήσεις.
+            </p>
+          </div>
+
+          <!-- Stream 2 -->
+          <div class="key-message">
+            <div class="stream-number">02</div>
+            <div class="key-title">Digital Experience & Load Reduction</div>
+            <div class="key-tag">
+              <span class="meta-pill teal">One4All</span>
+              <span class="meta-pill brown">Owls</span>
+            </div>
+            <p class="key-body">
+              <strong>Mesh Comcast & WiFi Pulse ενισχύουν την end-to-end WiFi εμπειρία</strong>
+              και υποστηρίζουν τη στρατηγική Load Reduction. Παράλληλα, αυτοματοποιούμε συνδυαστικά ραντεβού
+              και Massive Faults (active & passive) για FTTH, μειώνοντας μη πωλησιακές κλήσεις
+              και manual interventions.
+            </p>
+          </div>
+
+          <!-- Stream 3 -->
+          <div class="key-message">
+            <div class="stream-number">03</div>
+            <div class="key-title">B2B & Salesforce Transformation</div>
+            <div class="key-tag">
+              <span class="meta-pill blue">Trailblazers</span>
+            </div>
+            <p class="key-body">
+              <strong>Ενισχύουμε τις B2B ροές με dedicated processes για Public Bids</strong>
+              και EU projects μέσω Cosmote Global Solutions, ενώ το MVP για Quote-to-Order automation αποτελεί
+              κομβικό βήμα προς πιο αυτοματοποιημένο, data-driven sales lifecycle.
+            </p>
+          </div>
+
+          <!-- Stream 4 -->
+          <div class="key-message">
+            <div class="stream-number">04</div>
+            <div class="key-title">Operating Model & Capabilities</div>
+            <div class="key-tag">
+              <span class="meta-pill">All Squads</span>
+              <span class="meta-pill">Stakeholders</span>
+            </div>
+            <p class="key-body">
+              <strong>Χτίζουμε σχέσεις εμπιστοσύνης με βασικούς stakeholders σε FTTH & B2B</strong>,
+              ενδυναμώνουμε τα squads με καθαρότερες ροές, target-architecture design. Το ΑΙ είναι πλέον στη ζωή μας, στο development μας και στις λύσεις που σχεδιάζουμε
+            </p>
+          </div>
+        </section>
+        
+        <div class="kpi-row" style="margin-top: 10px;">
+          <span class="kpi-pill">5 squads · κοινή κατεύθυνση</span>
+          <span class="kpi-pill">Εστίαση σε FTTH · One Order · Digital Experience · B2B</span>
+        </div>
+        </div>
+      </section>
+      </div>
+    </main>
+
+    <footer class="footer-bar">
+      <div class="footer-left">
+      </div>
+      <div class="footer-right">
+        Value Delivery Domain
+      </div>
+    </footer>
+  </section>
+
+</body>
+</html>

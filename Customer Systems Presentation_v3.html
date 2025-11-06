@@ -1,0 +1,392 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Streams Ahead</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: linear-gradient(to bottom right, #000000, #0F1A2E);
+  color: #FFFFFF;
+  overflow: hidden;
+  position: relative;
+  min-height: 100vh;
+}
+
+body::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: 
+    repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.01) 2px, rgba(255,255,255,0.01) 4px),
+    repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(255,255,255,0.01) 2px, rgba(255,255,255,0.01) 4px);
+  pointer-events: none;
+  opacity: 0.3;
+}
+
+.container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  max-width: 1920px;
+  max-height: 1080px;
+  margin: 0 auto;
+  padding: 0px 80px 40px 80px;
+  margin-top: 0px;
+}
+
+header {
+  margin-bottom: 15px;
+  margin-top: -10px;
+  text-align: center;
+}
+
+h1 {
+  font-size: 56px;
+  font-weight: 900;
+  letter-spacing: -1px;
+  color: #E20074;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  font-size: 24px;
+  color: #B9C2E5;
+  font-weight: 300;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.streams-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  flex: 1;
+  align-items: center;
+}
+
+.stream-card {
+  background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+  backdrop-filter: blur(20px);
+  border-radius: 20px;
+  border: 2px solid #E20074;
+  padding: 40px 24px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  height: 420px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.stream-card:hover {
+  border-color: #FF0080;
+  box-shadow: 0 0 0 2px rgba(226, 0, 116, 0.3);
+}
+
+.stream-number {
+  position: absolute;
+  top: -15px;
+  right: 20px;
+  font-size: 100px;
+  font-weight: 900;
+  color: rgba(226, 0, 116, 0.4);
+  line-height: 1;
+  z-index: 0;
+}
+
+.stream-icon {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #E20074 0%, #C00060 100%);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 8px 24px rgba(226, 0, 116, 0.4);
+  flex-shrink: 0;
+}
+
+.stream-content {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.stream-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin-bottom: 12px;
+  line-height: 1.3;
+  min-height: 52px;
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.stream-subtitle {
+  font-size: 18px;
+  color: #E0E5F5;
+  font-weight: 400;
+  line-height: 1.5;
+  margin-bottom: 0;
+  width: 100%;
+  margin-top: 0;
+}
+
+.stream-subtitle ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.stream-subtitle li {
+  position: relative;
+  padding-left: 20px;
+  margin-bottom: 6px;
+}
+
+.stream-subtitle li:before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: #E20074;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.stream-badge {
+  display: inline-block;
+  padding: 10px 22px;
+  background: rgba(226, 0, 116, 0.2);
+  border: 1px solid rgba(226, 0, 116, 0.4);
+  border-radius: 16px;
+  font-size: 16px;
+  color: #E20074;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-top: auto;
+  margin-bottom: -25px;
+  align-self: flex-start;
+  flex-shrink: 0;
+}
+
+.timeline-connector {
+  position: absolute;
+  bottom: 60px;
+  left: 80px;
+  right: 80px;
+  height: 2px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(226, 0, 116, 0.3) 15%, 
+    rgba(226, 0, 116, 0.5) 50%, 
+    rgba(226, 0, 116, 0.3) 85%, 
+    transparent 100%);
+  z-index: 0;
+}
+
+footer {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 16px;
+  color: #B9C2E5;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@media (max-width: 1920px) {
+  .container {
+    transform: scale(0.9);
+    transform-origin: center;
+  }
+}
+
+@media (max-width: 1440px) {
+  .container {
+    transform: scale(0.7);
+  }
+}
+
+@media print {
+  body {
+    background: #0A0A14;
+  }
+  .container {
+    max-width: 100%;
+    max-height: 100%;
+    page-break-inside: avoid;
+  }
+  @page {
+    size: landscape;
+    margin: 0;
+  }
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <header role="banner">
+    <h1>QA & SREs Major Streams Ahead</h1>
+  </header>
+  
+  <main role="main">
+    <div class="streams-container">
+      <article class="stream-card">
+        <div class="stream-number">01</div>
+        <div class="stream-icon">📊</div>
+        <div class="stream-content">
+          <h2 class="stream-title">Releases , Aftercare & Major UATs</h2>
+          <div class="stream-subtitle">
+            <ul>
+              <li>Nov & Dec Major/Minor Releases </li>
+              <li>One Order Stream (ΜΒ1 ,Save , Prepaid ) </li>
+              <li>Inflation mobile & Xmas</li>
+              <li>Product Catalog & Dashboard Redesign</li>
+                        <li>Box Now</li>
+            </ul>
+          </div>
+          <span class="stream-badge">Test & Release</span>
+        </div>
+      </article>
+      
+      <article class="stream-card">
+        <div class="stream-number">02</div>
+        <div class="stream-icon">🗄️</div>
+        <div class="stream-content">
+          <h2 class="stream-title">Black Friday Germanos.gr & Cosmote.gr</h2>
+          <div class="stream-subtitle">
+            <ul>
+              <li>XMAS Offers (Stress tests, Campaigns volumes coordination)</li>
+              <li>AIX -> EXACC & EXADATA -> EXACC</li>
+              <li>ACI Migration (Siebel, WCRM)</li>
+            </ul>
+          </div>
+          <span class="stream-badge">PRODUCTION</span>
+        </div>
+      </article>
+
+      <article class="stream-card">
+        <div class="stream-number">03</div>
+        <div class="stream-icon">🗄️</div>
+        <div class="stream-content">
+          <h2 class="stream-title">UAT Environments Data Refresh & ExaCC & Data Masking</h2>
+          <div class="stream-subtitle">
+            <ul>
+              <li>19 Systems in scope</li>
+              <li>Trasfer DB from AIX / EXADATA -> EXACC</li>
+              <li>Apply Data Masking</li>
+           
+            </ul>
+          </div>
+          <span class="stream-badge">Test Data</span>
+        </div>
+      </article>
+      
+      <article class="stream-card">
+        <div class="stream-number">04</div>
+        <div class="stream-icon">👥</div>
+        <div class="stream-content">
+          <h2 class="stream-title">Project Management Tool <br> Resources Management</h2>
+          <p class="stream-subtitle">Enhance our Project Management Tool (Jira) with Resouce Management functionalities</p>
+          <span class="stream-badge">Tools</span>
+        </div>
+      </article>
+      
+      <article class="stream-card">
+        <div class="stream-number">05</div>
+        <div class="stream-icon">⚙️</div>
+        <div class="stream-content">
+          <h2 class="stream-title"> DevOps SREs Onboarding Next Steps</h2>
+          <div class="stream-subtitle">
+            <ul>
+              <li>Scaling SREs in dev units</li>
+              <li>Boost Synergies with DevOps</li>
+              <li>Finalize, align & communicate roadmap</li>
+            </ul>
+          </div>
+          <span class="stream-badge">DEVOPS & Synergies</span>
+        </div>
+      </article>
+      
+      <article class="stream-card">
+        <div class="stream-number">06</div>
+        <div class="stream-icon">📋</div>
+        <div class="stream-content">
+          <h2 class="stream-title">QA <-> SREs Synergies</h2>
+          <div class="stream-subtitle">
+            <ul>
+              <li>Release Management & Aftercare Optimization</li>
+              <li>Patching Automation@Test Chain</li>
+              <li>Scheduling Tool like UC4@Test Chain</li>
+              <li>Automated Regression Tests@Prod</li>
+            </ul>
+          </div>
+          <span class="stream-badge">DEVOPS & Synergies</span>
+        </div>
+      </article>
+      
+      <article class="stream-card">
+        <div class="stream-number">07</div>
+        <div class="stream-icon">🤖</div>
+        <div class="stream-content">
+          <h2 class="stream-title">AITestGen Production Launch</h2>
+          <p class="stream-subtitle">AI-powered test cased generation platform accelerating Software Developement Life Cycle </p>
+          <span class="stream-badge">ΑΙ</span>
+        </div>
+      </article>
+      
+      <article class="stream-card">
+        <div class="stream-number">08</div>
+        <div class="stream-icon">🔴</div>
+        <div class="stream-content">
+          <h2 class="stream-title">RedmAIner</h2>
+          <div class="stream-subtitle">
+            <p style="margin-bottom: 12px;">ΑΙ-powered & chat based assistant for Redmine analysis & agentic reporting</p>
+            <ul>
+              <li>Chat on SIT/UAT progress (bugs, aging, data, execution, bottlenecks)</li>
+              <li>Send Reports by prompting</li>
+              <li>Integration with PM tool (Jira)</li>
+            </ul>
+          </div>
+          <span class="stream-badge">AI</span>
+        </div>
+      </article>
+    </div>
+  </main>
+  
+  <footer role="contentinfo">
+    Customer Systems | Quality Assurance & Production Reliability
+  </footer>
+</div>
+</body>
+</html>
+
+ 
+
+

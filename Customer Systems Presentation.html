@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8" />
+  <title>Customer Systems – Q Highlights</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #000000;
+      --bg-alt: #0a0a0a;
+      --card-bg: #111111;
+      --accent: #d946ef;
+      --accent-soft: rgba(217, 70, 239, 0.12);
+      --text-main: #f9fafb;
+      --text-muted: #9ca3af;
+      --border-subtle: rgba(217, 70, 239, 0.18);
+      --radius-lg: 18px;
+      --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.75);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #0a0a0a 0, #050505 52%, #000 100%);
+      color: var(--text-main);
+      line-height: 1.5;
+    }
+
+    .slide {
+      min-height: 100vh;
+      padding: 56px 72px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      gap: 16px;
+    }
+
+    .slide-header {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      max-width: 960px;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .tag {
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: rgba(0, 0, 0, 0.85);
+      border-radius: 999px;
+      border: 1px solid rgba(217, 70, 239, 0.35);
+      padding: 6px 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .tag-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .slide-title {
+      font-size: 32px;
+      font-weight: 650;
+      letter-spacing: 0.02em;
+    }
+
+    .slide-subtitle {
+      font-size: 15px;
+      color: var(--text-muted);
+      max-width: 780px;
+    }
+
+    .content-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      align-items: stretch;
+    }
+
+    .card {
+      background: radial-gradient(circle at top left, #1a1a1a 0, #000000 50%);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-subtle);
+      padding: 20px 22px;
+      box-shadow: var(--shadow-soft);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .card-title {
+      font-size: 15px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .pill {
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(217, 70, 239, 0.5);
+      color: var(--text-muted);
+    }
+
+    .kpi-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .kpi-pill {
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.9);
+      border: 1px solid rgba(217, 70, 239, 0.4);
+    }
+
+    ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding-left: 0;
+      font-size: 14px;
+    }
+
+    li {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+    }
+
+    li::before {
+      content: "•";
+      color: var(--accent);
+      margin-top: 1px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      border: 1px solid rgba(217, 70, 239, 0.5);
+    }
+
+    .badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--accent);
+    }
+
+    .columns-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .stream-card {
+      background: var(--card-bg);
+      border-radius: 14px;
+      border: 1px solid var(--border-subtle);
+      padding: 14px 14px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 13px;
+    }
+
+    .stream-title {
+      font-weight: 600;
+      font-size: 13px;
+    }
+
+    .stream-tag {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .stream-body {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .footer-note {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .highlight {
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .kpi-metric {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: 12px;
+      border-radius: 12px;
+      background: rgba(0, 0, 0, 0.6);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .kpi-value {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1.2;
+    }
+
+    .kpi-label {
+      font-size: 11px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .kpi-trend {
+      font-size: 11px;
+      margin-top: 2px;
+    }
+
+    .kpi-trend.positive {
+      color: var(--accent);
+    }
+
+    .kpi-trend.negative {
+      color: var(--accent);
+      opacity: 0.6;
+    }
+
+    @media (max-width: 960px) {
+      .slide {
+        padding: 32px 20px 40px;
+      }
+
+      .slide-title {
+        font-size: 24px;
+      }
+
+      .content-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .columns-3 {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SLIDE 1: Τι πετύχαμε το τελευταίο Q -->
+  <section class="slide">
+    <header class="slide-header">
+      <div class="tag-row" style="flex-direction: column; align-items: flex-start; gap: 8px;">
+        <div class="tag">
+          <span class="tag-dot"></span>
+          Customer Systems · Q Results
+        </div>
+        <!-- Μπορείς να αλλάξεις το domain/tribe εδώ -->
+        <div style="display: flex; flex-direction: column; gap: 6px;">
+          <span class="slide-subtitle" style="font-size: 13px; font-weight: 600; color: var(--accent);">
+            Domain Value Delivery Stream
+          </span>
+          <span class="slide-subtitle" style="font-size: 12px; margin-left: 8px;">
+            Sales-Product Ordering · One Ticket · Wholesale Facilitators · FTTH Excellence · Salesforce
+          </span>
+        </div>
+      </div>
+
+      <h1 class="slide-title">
+        Τι πετύχαμε το τελευταίο Quarter
+      </h1>
+
+      <p class="slide-subtitle">
+        Αναδεικνύουμε το <span class="highlight">effort των ομάδων μας</span> και τα πιο σημαντικά deliverables που έφεραν
+        πραγματικό business impact, από το προηγούμενο Q μέχρι σήμερα.
+      </p>
+    </header>
+
+    <main class="content-grid">
+      <!-- Squads & Deliverables -->
+      <section class="card">
+        <div class="card-header">
+          <div class="card-title">
+            🚀 Deliverables ανά Squad
+          </div>
+          <span class="pill">Celebrate the Teams</span>
+        </div>
+
+        <!-- SQUAD 1 -->
+        <div style="display:flex; flex-direction:column; gap:6px; margin-bottom:10px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; gap:8px;">
+            <span class="badge">
+              <span class="badge-dot"></span>
+              Fibercats
+            </span>
+          </div>
+          <ul>
+            <li>Ολοκλήρωση pilot–follower flow με focus στη χρηστικότητα και ταχύτητα ενεργοποίησης.</li>
+            <li>Ετοιμότητα για ευρύτερο rollout με σταθερά KPIs ποιότητας.</li>
+          </ul>
+          <!-- KPI PLACEHOLDER -->
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 8px;">
+            <div class="kpi-metric">
+              <div class="kpi-label">[KPI 1]</div>
+              <div class="kpi-value">[Value]</div>
+              <div class="kpi-trend positive">[Trend]</div>
+            </div>
+            <div class="kpi-metric">
+              <div class="kpi-label">[KPI 2]</div>
+              <div class="kpi-value">[Value]</div>
+              <div class="kpi-trend positive">[Trend]</div>
+            </div>
+            <div class="kpi-metric">
+              <div class="kpi-label">[KPI 3]</div>
+              <div class="kpi-value">[Value]</div>
+              <div class="kpi-trend positive">[Trend]</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SQUAD 2 -->
+        <div style="display:flex; flex-direction:column; gap:6px; margin-bottom:10px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; gap:8px;">
+            <span class="badge">
+              <span class="badge-dot"></span>
+              SFA Trailblazers
+            </span>
+          </div>
+          <ul>
+            <li>Ενίσχυση flows για B2B Renewals / αλλαγή προγραμμάτων.</li>
+            <li>Προετοιμασία για αξιοποίηση Agentforce AI & Data Cloud.</li>
+          </ul>
+          <!-- KPI PLACEHOLDER -->
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 8px;">
+            <div class="kpi-metric">
+              <div class="kpi-label">[KPI 1]</div>
+              <div class="kpi-value">[Value]</div>
+              <div class="kpi-trend positive">[Trend]</div>
+            </div>
+            <div class="kpi-metric">
+              <div class="kpi-label">[KPI 2]</div>
+              <div class="kpi-value">[Value]</div>
+              <div class="kpi-trend positive">[Trend]</div>
+            </div>
+            <div class="kpi-metric">
+              <div class="kpi-label">[KPI 3]</div>
+              <div class="kpi-value">[Value]</div>
+              <div class="kpi-trend positive">[Trend]</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SQUAD 3 -->
+        <div style="display:flex; flex-direction:column; gap:6px; margin-bottom:10px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; gap:8px;">
+            <span class="badge">
+              <span class="badge-dot"></span>
+              ProductRangers
+            </span>
+          </div>
+          <ul>
+            <li>Υλοποίηση basket & partial basket (διαφορετικά use cases σε ενιαίο checkout).</li>
+            <li>Ενοποίηση εμπειρίας παραγγελίας across προϊόντα & κανάλια.</li>
+          </ul>
+          <!-- KPI PLACEHOLDER -->
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 8px;">
+            <div class="kpi-metric">
+              <div class="kpi-label">[KPI 1]</div>
+              <div class="kpi-value">[Value]</div>
+              <div class="kpi-trend positive">[Trend]</div>
+            </div>
+            <div class="kpi-metric">
+              <div class="kpi-label">[KPI 2]</div>
+              <div class="kpi-value">[Value]</div>
+              <div class="kpi-trend positive">[Trend]</div>
+            </div>
+            <div class="kpi-metric">
+              <div class="kpi-label">[KPI 3]</div>
+              <div class="kpi-value">[Value]</div>
+              <div class="kpi-trend positive">[Trend]</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SQUAD 4 -->
+        <div style="display:flex; flex-direction:column; gap:6px; margin-bottom:10px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; gap:8px;">
+            <span class="badge">
+              <span class="badge-dot"></span>
+              One4All
+            </span>
+          </div>
+          <ul>
+            <li>[Deliverable 1 για One Ticket]</li>
+            <li>[Deliverable 2 για One Ticket]</li>
+          </ul>
+          <!-- KPI PLACEHOLDER -->
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 8px;">
+            <div class="kpi-metric">
+              <div class="kpi-label">[KPI 1]</div>
+              <div class="kpi-value">[Value]</div>
+              <div class="kpi-trend positive">[Trend]</div>
+            </div>
+            <div class="kpi-metric">
+              <div class="kpi-label">[KPI 2]</div>
+              <div class="kpi-value">[Value]</div>
+              <div class="kpi-trend positive">[Trend]</div>
+            </div>
+            <div class="kpi-metric">
+              <div class="kpi-label">[KPI 3]</div>
+              <div class="kpi-value">[Value]</div>
+              <div class="kpi-trend positive">[Trend]</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SQUAD 5 -->
+        <div style="display:flex; flex-direction:column; gap:6px; margin-bottom:10px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; gap:8px;">
+            <span class="badge">
+              <span class="badge-dot"></span>
+              Owls
+            </span>
+          </div>
+          <ul>
+            <li>[Deliverable 1 για Wholesale Facilitators]</li>
+            <li>[Deliverable 2 για Wholesale Facilitators]</li>
+          </ul>
+          <!-- KPI PLACEHOLDER -->
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 8px;">
+            <div class="kpi-metric">
+              <div class="kpi-label">[KPI 1]</div>
+              <div class="kpi-value">[Value]</div>
+              <div class="kpi-trend positive">[Trend]</div>
+            </div>
+            <div class="kpi-metric">
+              <div class="kpi-label">[KPI 2]</div>
+              <div class="kpi-value">[Value]</div>
+              <div class="kpi-trend positive">[Trend]</div>
+            </div>
+            <div class="kpi-metric">
+              <div class="kpi-label">[KPI 3]</div>
+              <div class="kpi-value">[Value]</div>
+              <div class="kpi-trend positive">[Trend]</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ΜΠΟΡΕΙΣ ΝΑ ΠΡΟΣΘΕΣΕΙΣ & ΑΛΛΑ SQUADS -->
+        <div class="footer-note">
+          ➜ Πρόσθεσε / αφαίρεσε squads και bullets ανάλογα με τα δικά σου streams (One Ticket, Wholesale κ.λπ.).
+        </div>
+      </section>
+    </main>
+  </section>
+
+  <!-- SLIDE 2: Τι έχουμε μπροστά μας (Strategic Streams) -->
+  <section class="slide">
+    <header class="slide-header">
+      <div class="tag-row">
+        <div class="tag">
+          <span class="tag-dot"></span>
+          Strategic Streams · 2025 Outlook
+        </div>
+      </div>
+
+      <h1 class="slide-title">
+        Τι έχουμε μπροστά μας
+      </h1>
+
+      <p class="slide-subtitle">
+        Εστιάζουμε στα <span class="highlight">strategic streams</span> που αλλάζουν τον τρόπο που σχεδιάζουμε, υλοποιούμε
+        και λειτουργούμε τα συστήματα Customer Systems – με έμφαση σε One Order, AI και ενδυνάμωση των ομάδων.
+      </p>
+    </header>
+
+    <main class="content-grid">
+      <!-- Αριστερή στήλη – Key Focus Areas -->
+      <article class="card">
+        <div class="card-header">
+          <div class="card-title">
+            🎯 Key Focus Q4–Q1
+          </div>
+          <span class="pill">What’s Next</span>
+        </div>
+
+        <ul>
+          <li>
+            Επιτάχυνση του <span class="highlight">One Order</span> (B2C & B2B): ενοποίηση flows, απλοποίηση processes,
+            μετρήσιμο business impact.
+          </li>
+          <li>
+            Αξιοποίηση <span class="highlight">AI</span> (Agent Assistant, Magenta AI, AI BRD Assistant) για μείωση κόστους
+            και αύξηση ποιότητας.
+          </li>
+          <li>
+            Ενίσχυση <span class="highlight">Salesforce</span> ως ενιαίου εργαλείου για frontline (Data Cloud, Next Best Action).
+          </li>
+          <li>
+            <span class="highlight">Insourcing & capability building</span> – ενδυνάμωση System Owners & Chapters.
+          </li>
+        </ul>
+
+        <div class="footer-note">
+          ➜ Αυτά τα bullets θα είναι το “μήνυμα” που θέλεις να μείνει στο management για το πού πάει το domain.
+        </div>
+      </article>
+
+      <!-- Δεξιά στήλη – Streams σε 3 στήλες -->
+      <section class="card">
+        <div class="card-header">
+          <div class="card-title">
+            🧭 Strategic Streams
+          </div>
+          <span class="pill">Mid-term View</span>
+        </div>
+
+        <div class="columns-3">
+          <!-- Stream 1 -->
+          <div class="stream-card">
+            <div class="stream-title">One Order Expansion</div>
+            <div class="stream-tag">Customer Journeys</div>
+            <div class="stream-body">
+              • Επέκταση σε νέα προϊόντα & κανάλια<br />
+              • Ενοποίηση εμπειρίας παραγγελίας<br />
+              • Σαφείς μετρικές παρακολούθησης (lead time, fallouts)
+            </div>
+          </div>
+
+          <!-- Stream 2 -->
+          <div class="stream-card">
+            <div class="stream-title">AI Enablement</div>
+            <div class="stream-tag">Magenta AI · Agent Assist</div>
+            <div class="stream-body">
+              • Agent assistant για frontline<br />
+              • AI για BRDs, UAT test cases & support<br />
+              • RAG / γνώση πάνω σε Salesforce & One Order data
+            </div>
+          </div>
+
+          <!-- Stream 3 -->
+          <div class="stream-card">
+            <div class="stream-title">Salesforce Evolution</div>
+            <div class="stream-tag">SFA · Data Cloud</div>
+            <div class="stream-body">
+              • Ενοποίηση δεδομένων σε Data Cloud<br />
+              • Next Best Action ανά πελάτη<br />
+              • Στενότερη σύνδεση με εμπορικές στρατηγικές
+            </div>
+          </div>
+
+          <!-- Stream 4 -->
+          <div class="stream-card">
+            <div class="stream-title">Insourcing & Skills</div>
+            <div class="stream-tag">Operating Model</div>
+            <div class="stream-body">
+              • Ενίσχυση Chapter System Owners<br />
+              • Σταδιακή μείωση εξάρτησης από vendors<br />
+              • Ανάπτυξη εσωτερικών δυνατοτήτων σε AI & microservices
+            </div>
+          </div>
+
+          <!-- Stream 5 -->
+          <div class="stream-card">
+            <div class="stream-title">Quality & Stability</div>
+            <div class="stream-tag">Run & Change</div>
+            <div class="stream-body">
+              • Βελτίωση observability & monitoring<br />
+              • Στόχευση σε λιγότερα incidents & fallouts<br />
+              • Καλύτερη συνεργασία squads – operations
+            </div>
+          </div>
+
+          <!-- Stream 6 -->
+          <div class="stream-card">
+            <div class="stream-title">Customer & Employee Experience</div>
+            <div class="stream-tag">End-to-end View</div>
+            <div class="stream-body">
+              • Απλούστευση daily work για τους χρήστες<br />
+              • Σταθερή εμπειρία across κανάλια<br />
+              • Feedback loops από frontline προς squads
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-note">
+          ➜ Μπορείς να μετονομάσεις / αφαιρέσεις streams για να ταιριάζουν ακριβώς στο δικό σου μήνυμα.
+        </div>
+      </section>
+    </main>
+  </section>
+
+</body>
+</html>
